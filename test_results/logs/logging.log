@@ -1,0 +1,31 @@
+2020-10-21 13:55:00,522 - [test_login.py-->line:28] - ERROR: 用例---密码为空---执行失败
+2020-10-21 13:55:00,523 - [test_login.py-->line:29] - ERROR: assert '请输入密码' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.7984495127641629-4")>
+Traceback (most recent call last):
+  File "E:\practice\py31\web_pro_01\testcases\test_login.py", line 26, in test_login_data_is_none
+    assert case['expected'] == res
+AssertionError: assert '请输入密码' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.7984495127641629-4")>
+2020-10-21 13:55:01,133 - [test_login.py-->line:28] - ERROR: 用例---手机号为空---执行失败
+2020-10-21 13:55:01,134 - [test_login.py-->line:29] - ERROR: assert '请输入手机号' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.41855780248416696-4")>
+Traceback (most recent call last):
+  File "E:\practice\py31\web_pro_01\testcases\test_login.py", line 26, in test_login_data_is_none
+    assert case['expected'] == res
+AssertionError: assert '请输入手机号' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.41855780248416696-4")>
+2020-10-21 13:55:01,807 - [test_login.py-->line:47] - ERROR: 用例---帐号或密码错误---执行失败
+2020-10-21 13:55:01,807 - [test_login.py-->line:48] - ERROR: assert '帐号或密码错误!' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.6442691970154037-4")>
+Traceback (most recent call last):
+  File "E:\practice\py31\web_pro_01\testcases\test_login.py", line 45, in test_login_toast_error
+    assert case['expected'] == res
+AssertionError: assert '帐号或密码错误!' == <selenium.webdriver.remote.webelement.WebElement (session="9ec7954314bda90d385afda833c9bf13", element="0.6442691970154037-4")>
+2020-10-21 14:40:01,891 - [test_login.py-->line:32] - INFO: 用例---密码为空---执行失败
+2020-10-21 14:40:02,445 - [test_login.py-->line:32] - INFO: 用例---手机号为空---执行失败
+2020-10-21 14:40:03,159 - [test_login.py-->line:51] - INFO: 用例---帐号或密码错误---执行失败
+2020-10-21 14:41:40,805 - [test_login.py-->line:32] - INFO: 用例---密码为空---执行失败
+2020-10-21 14:41:41,320 - [test_login.py-->line:32] - INFO: 用例---手机号为空---执行失败
+2020-10-21 14:41:41,970 - [test_login.py-->line:51] - INFO: 用例---帐号或密码错误---执行失败
+2020-10-21 14:41:44,752 - [test_login.py-->line:70] - INFO: 用例---登录成功---执行失败
+2020-10-21 15:29:21,978 - [test_login.py-->line:32] - INFO: 用例---密码为空---执行失败
+2020-10-21 15:29:22,575 - [test_login.py-->line:32] - INFO: 用例---手机号为空---执行失败
+2020-10-21 15:29:23,347 - [test_login.py-->line:51] - INFO: 用例---帐号或密码错误---执行失败
+2020-10-21 15:29:26,619 - [test_login.py-->line:70] - INFO: 用例---登录成功---执行失败
+2020-10-21 15:44:22,382 - [test_login.py-->line:33] - INFO: 用例---密码为空---执行失败
+2020-10-21 15:44:22,863 - [test_login.py-->line:33] - INFO: 用例---手机号为空---执行失败
