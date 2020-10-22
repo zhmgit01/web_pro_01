@@ -5,6 +5,8 @@
 
 import pytest
 from selenium.webdriver import Chrome
+from pages.user_page import UserPage
+from pages.invest_page import InvestPage
 from pages.login_page import LoginPage
 from pages.index_page import IndexPage
 from common.handle_config import conf
@@ -20,4 +22,31 @@ def login_setup():
     index_page = IndexPage(driver)
     yield login_page, index_page
     # 登录的后置 退出driver
+    driver.quit()
+
+
+@pytest.fixture(scope='class')
+def invest_fixture():
+    """投资用例的前置条件"""
+    driver = Chrome()
+    # 最大化窗口
+    driver.maximize_window()
+    # 设置隐式等待
+    driver.implicitly_wait(15)
+    # 实例登录页面对象
+    login_page = LoginPage(driver)
+    # 打开登录页面
+    login_page.open_login_page()
+    # 进行登录
+    login_page.login(mobile_phone=conf.get('test_data', 'mobile'), pwd=conf.get('test_data', 'pwd'))
+    # 实例首页对象
+    index_page = IndexPage(driver)
+    # 首页点击投资
+    index_page.click_invest()
+    # 实例投资页面对象
+    invest_page = InvestPage(driver)
+    # 实例用户页面对象
+    user_page = UserPage(driver)
+
+    yield invest_page, user_page
     driver.quit()

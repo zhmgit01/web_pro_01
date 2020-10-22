@@ -49,64 +49,34 @@
 """
 
 import pytest
-from selenium.webdriver import Chrome
-from pages.login_page import LoginPage
-from pages.index_page import IndexPage
-from pages.invest_page import InvestPage
-from pages.user_page import UserPage
-from common.handle_config import conf
-
-
-@pytest.fixture(scope='class')
-def invest_fixture():
-    """投资用例的前置条件"""
-    driver = Chrome()
-    # 最大化窗口
-    driver.maximize_window()
-    # 设置隐式等待
-    driver.implicitly_wait(15)
-    # 实例登录页面对象
-    login_page = LoginPage(driver)
-    # 打开登录页面
-    login_page.open_login_page()
-    # 进行登录
-    login_page.login(mobile_phone=conf.get('test_data', 'mobile'), pwd=conf.get('test_data', 'pwd'))
-    # 实例首页对象
-    index_page = IndexPage(driver)
-    # 首页点击投资
-    index_page.click_invest()
-    # 实例投资页面对象
-    invest_page = InvestPage(driver)
-    # 实例用户页面对象
-    user_page = UserPage(driver)
-
-    yield invest_page, user_page
-    driver.quit()
+from casedatas.invest_data import InvestData
 
 
 class TestInvest:
     """测试投资用例类"""
 
-    def test_invest_error_info_btn(self, invest_fixture):
+    @pytest.mark.parametrize('case', InvestData.error_data)
+    def test_invest_error_info_btn(self, case, invest_fixture):
         invest_page = invest_fixture[0]
         # 1、输入投资金额
-        invest_page.input_invest_amount(11)
+        invest_page.input_invest_amount(case['money'])
         # 2、获取投资按钮中的提示
         res = invest_page.get_invest_btn_error_info()
-        expected = '请输入10的整数倍'
+        expected = case['expected']
         # 3、断言
         assert res == expected
 
-    def test_invest_error_window_info(self, invest_fixture):
+    @pytest.mark.parametrize('case', InvestData.error_popup_data)
+    def test_invest_error_window_info(self, case, invest_fixture):
         invest_page = invest_fixture[0]
         # 1、输入投资金额，点击投资
-        invest_page.input_invest_amount(-100)
+        invest_page.input_invest_amount(case['money'])
         invest_page.click_invest()
         # 2、获取页面弹框中的错误提示
         res = invest_page.get_window_error_info()
         invest_page.click_close_error_window()
         # 3、断言
-        expected = '请正确填写投标金额'
+        expected = case['expected']
         assert res == expected
 
     # def test_invest_success(self, invest_fixture):
@@ -120,18 +90,19 @@ class TestInvest:
     #     expected = '投标成功！'
     #     assert expected == res
 
-    def test_invest_success(self, invest_fixture):
+    @pytest.mark.parametrize('case', InvestData.success_data)
+    def test_invest_success(self, case, invest_fixture):
         invest_page, user_page = invest_fixture
         # 1、获取投资前用户的余额
         start_amount = invest_page.get_invest_input_amount()
         # 2、输入投资金额
-        invest_page.input_invest_amount(100)
+        invest_page.input_invest_amount(case['money'])
         # 点击投资
         invest_page.click_invest()
         # 3、获取页面时投资成功的提示
         res = invest_page.get_window_success_info()
         # 4、断言
-        expected = '投标成功！'
+        expected = case['expected']
         assert res == expected
         # 5、点击查看并激活
         invest_page.click_window_active()
@@ -139,4 +110,4 @@ class TestInvest:
         end_amount = user_page.get_user_amount()
         # 7、计算投资前后用户余额的变化，并断言
         res_change_amount = float(start_amount) - float(end_amount)
-        assert res_change_amount == 100
+        assert res_change_amount == case['money']

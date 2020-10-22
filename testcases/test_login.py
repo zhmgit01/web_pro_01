@@ -4,7 +4,7 @@
 # @Author    :zhm
 
 import pytest
-from casedatas import login_data
+from casedatas.login_data import LoginData
 from common.handle_log import log
 
 
@@ -12,7 +12,7 @@ class TestLogin:
     """登录的测试用例类"""
 
     # 参数化登录数据
-    @pytest.mark.parametrize('case', login_data.login_data_is_none)
+    @pytest.mark.parametrize('case', LoginData.login_data_is_none)
     def test_login_data_is_none(self, case, login_setup):
         login_page, index_page = login_setup
         login_page.open_login_page()
@@ -31,7 +31,7 @@ class TestLogin:
         else:
             log.info('用例---{}---执行失败'.format(case['title']))
 
-    @pytest.mark.parametrize('case', login_data.login_toast_error_data)
+    @pytest.mark.parametrize('case', LoginData.login_toast_error_data)
     def test_login_toast_error(self, case, login_setup):
         login_page, index_page = login_setup
         login_page.open_login_page()
@@ -50,7 +50,7 @@ class TestLogin:
         else:
             log.info('用例---{}---执行失败'.format(case['title']))
 
-    @pytest.mark.parametrize('case', login_data.login_pass_data)
+    @pytest.mark.parametrize('case', LoginData.login_pass_data)
     def test_login_pass(self, case, login_setup):
         login_page, index_page = login_setup
         login_page.open_login_page()
