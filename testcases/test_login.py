@@ -15,7 +15,7 @@ class TestLogin:
     @pytest.mark.parametrize('case', login_data.login_data_is_none)
     def test_login_data_is_none(self, case, login_setup):
         login_page, index_page = login_setup
-        login_page.reset_login_page()
+        login_page.open_login_page()
 
         # 1、登录
         login_page.login(case['phone'], case['pwd'])
@@ -34,7 +34,7 @@ class TestLogin:
     @pytest.mark.parametrize('case', login_data.login_toast_error_data)
     def test_login_toast_error(self, case, login_setup):
         login_page, index_page = login_setup
-        login_page.reset_login_page()
+        login_page.open_login_page()
 
         # 1、登录
         login_page.login(case['phone'], case['pwd'])
@@ -53,7 +53,7 @@ class TestLogin:
     @pytest.mark.parametrize('case', login_data.login_pass_data)
     def test_login_pass(self, case, login_setup):
         login_page, index_page = login_setup
-        login_page.reset_login_page()
+        login_page.open_login_page()
 
         # 1、登录
         login_page.login(case['phone'], case['pwd'])

@@ -12,3 +12,5 @@ class IndexLocator:
     user_info_loc = (By.XPATH, '//a[contains(text(),"我的帐户")]')
     # 退出按钮
     quit_login_loc = (By.XPATH, '//a[contains(text(),"退出")]')
+    # 抢投标
+    invest_loc = (By.XPATH, '(//a[text()="抢投标"])[1]')

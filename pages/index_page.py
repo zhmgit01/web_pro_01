@@ -24,3 +24,7 @@ class IndexPage(object):
     def click_quit_login(self):
         """点击退出登录"""
         self.driver.find_element(*IndexLocator.quit_login_loc).click()
+
+    def click_invest(self):
+        """点击抢投标"""
+        self.driver.find_element(*IndexLocator.invest_loc).click()

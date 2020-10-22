@@ -49,6 +49,6 @@ class LoginPage(object):
         res = self.driver.find_element(*LoginLocator.toast_error_info_locator).text
         return res
 
-    def reset_login_page(self):
-        """重置登录页面"""
+    def open_login_page(self):
+        """打开登录页面"""
         self.driver.get(conf.get('env', 'base_url') + conf.get('url_path', 'login'))
