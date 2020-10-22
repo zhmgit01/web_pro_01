@@ -18,7 +18,7 @@ REPORT_DIR = os.path.join(BASE_DIR, 'test_results/reports')
 LOG_DIR = os.path.join(BASE_DIR, 'test_results/logs')
 
 # 错误截图存放的目录路径
-ERROR_DIR = os.path.join(BASE_DIR, 'test_results/error_images')
+ERROR_IMAGE = os.path.join(BASE_DIR, 'test_results/error_images')
 
 # 用例数据的项目路径
 DATA_DIR = os.path.join(BASE_DIR, 'casedatas')

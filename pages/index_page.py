@@ -4,18 +4,16 @@
 # @Author    :zhm
 
 from locator.index_locator import IndexLocator
+from pages.base_page import BasePage
 
 
-class IndexPage(object):
+class IndexPage(BasePage):
     """首页"""
-
-    def __init__(self, driver):
-        self.driver = driver
 
     def is_login(self):
         """判断用户是否登录"""
         try:
-            self.driver.find_element(*IndexLocator.user_info_loc)
+            self.get_element(IndexLocator.user_info_loc, loc_desc='首页_我的帐户')
         except:
             return False
         else:
@@ -23,8 +21,8 @@ class IndexPage(object):
 
     def click_quit_login(self):
         """点击退出登录"""
-        self.driver.find_element(*IndexLocator.quit_login_loc).click()
+        self.click_element(IndexLocator.quit_login_loc, loc_desc='首页_退出登录')
 
     def click_invest(self):
         """点击抢投标"""
-        self.driver.find_element(*IndexLocator.invest_loc).click()
+        self.click_element(IndexLocator.invest_loc, loc_desc='首页_抢投标')

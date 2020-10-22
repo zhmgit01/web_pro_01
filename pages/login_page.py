@@ -5,15 +5,11 @@
 
 from common.handle_config import conf
 from locator.login_locator import LoginLocator
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
 
-class LoginPage(object):
+class LoginPage(BasePage):
     """登录页面"""
-
-    def __init__(self, driver):
-        self.driver = driver
 
     def login(self, mobile_phone, pwd):
         """
@@ -23,31 +19,21 @@ class LoginPage(object):
         :return:
         """
         # 1、输入账号
-        login_input = self.driver.find_element(*LoginLocator.input_mobile_locator)
-        # 清空输入框中缓存内容
-        login_input.clear()
-        login_input.send_keys(mobile_phone)
-
+        self.input_send_keys(LoginLocator.input_mobile_locator, mobile_phone, loc_desc='登录页面_输入手机号')
         # 2、输入密码
-        pwd_input = self.driver.find_element(*LoginLocator.input_pwd_locator)
-        pwd_input.clear()
-        pwd_input.send_keys(pwd)
-
+        self.input_send_keys(LoginLocator.input_pwd_locator, pwd, loc_desc='登录页面_输入密码')
         # 3、点击登录
-        self.driver.find_element(*LoginLocator.login_btn_locator).click()
+        self.click_element(LoginLocator.login_btn_locator)
 
     def get_page_error_info(self):
         """获取页面上的错误提示"""
-        res = self.driver.find_element(*LoginLocator.page_error_locator).text
+        res = self.get_element_text(LoginLocator.page_error_locator,loc_desc='登录页面_错误信息提示')
         return res
 
     def get_toast_error_info(self):
         """获取toast弹窗错误提示"""
-        WebDriverWait(self.driver, 15, 0.5).until(
-            EC.visibility_of_element_located(LoginLocator.toast_error_info_locator)
-        )
-        res = self.driver.find_element(*LoginLocator.toast_error_info_locator).text
-        return res
+        self.wait_visibility_ele(LoginLocator.toast_error_info_locator,loc_desc='登录页面_toast错误弹框')
+        return self.get_element_text(LoginLocator.toast_error_info_locator)
 
     def open_login_page(self):
         """打开登录页面"""
