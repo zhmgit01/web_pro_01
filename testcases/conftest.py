@@ -5,6 +5,7 @@
 
 import pytest
 from selenium.webdriver import Chrome
+from selenium import webdriver
 from pages.user_page import UserPage
 from pages.invest_page import InvestPage
 from pages.login_page import LoginPage
@@ -12,10 +13,23 @@ from pages.index_page import IndexPage
 from common.handle_config import conf
 
 
+def create_driver():
+    """打开浏览器，创建driver对象"""
+    # 读取配置文件中的配置，判断是否以无头模式运行
+    if conf.getboolean('run', 'headless'):
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        driver = webdriver.Chrome(options=options)
+    else:
+        driver = Chrome()
+    return driver
+
+
 @pytest.fixture(scope='class')
 def login_setup():
     """前置方法 登录"""
-    driver = Chrome()
+    driver = create_driver()
     driver.implicitly_wait(10)
     driver.get(conf.get('env', 'base_url') + conf.get('url_path', 'login'))
     login_page = LoginPage(driver)
@@ -28,7 +42,7 @@ def login_setup():
 @pytest.fixture(scope='class')
 def invest_fixture():
     """投资用例的前置条件"""
-    driver = Chrome()
+    driver = create_driver()
     # 最大化窗口
     driver.maximize_window()
     # 设置隐式等待
